@@ -1,15 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const { exec } = require('child_process');
 
 const app = express();
-var port = process.env.PORT || 8080
-app.use(express.static('public'));
 
-app.get('/', async (req, res) => {
-  res.status(200).send({
-    message:'FUNCIONO'
-  })
-})
+app.use(cors()); // Agrega el middleware cors
+
+app.use(express.static('public'));
 
 app.get('/run-script', (req, res) => {
   exec('node script.js', (error, stdout, stderr) => {
@@ -24,14 +21,13 @@ app.get('/run-script', (req, res) => {
       return;
     }
     res.send(stdout);
-    
   });
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname  + '/index.html');
+  res.sendFile(__dirname + '/client/index.html');
 });
 
-app.listen(port, () => {
-  console.log('App running on port 8080');
+app.listen(3000, () => {
+  console.log('App running on port 3000');
 });

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ejemplo de solicitud Fetch</title>
+  </head>
+  <body>
+    <button onclick="ejecutarScript()">Ejecutar script</button>
+
+    <script>
+      function ejecutarScript() {
+        fetch('http://localhost:3000/run-script')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('HTTP error! status: ' + response.status);
+            }
+            return response.text();
+          })
+          .then(data => {
+            console.log(data);
+            alert('El script se ha ejecutado correctamente.');
+          })
+          .catch(error => {
+            console.error(error);
+            alert('Ha ocurrido un error al ejecutar el script.');
+          });
+      }
+    </script>
+  </body>
+</html>
