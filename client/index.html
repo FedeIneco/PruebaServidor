@@ -8,7 +8,7 @@
 
     <script>
       function ejecutarScript() {
-        fetch('http://localhost:3000/run-script')
+        fetch('http://localhost:8080/run-script')
           .then(response => {
             if (!response.ok) {
               throw new Error('HTTP error! status: ' + response.status);
