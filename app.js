@@ -5,8 +5,14 @@ const app = express();
 var port = process.env.PORT || 8080
 app.use(express.static('public'));
 
+app.get('/', async (req, res) => {
+  res.status(200).send({
+    message:'FUNCIONO'
+  })
+})
+
 app.get('/run-script', (req, res) => {
-  exec('dir', (error, stdout, stderr) => {
+  exec('node script.js', (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`);
       res.status(500).send('Error');
@@ -23,7 +29,7 @@ app.get('/run-script', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile("done" + '/index.html');
+  res.sendFile(__dirname  + '/index.html');
 });
 
 app.listen(port, () => {
